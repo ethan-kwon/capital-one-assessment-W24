@@ -9,7 +9,7 @@ public class TransactionTest {
     PointRewards pointRewards = new PointRewards();
 
     @Test
-    void ExampleTest() {
+    void exampleTest() {
         List<Transaction> transactionList = new ArrayList<>(
                 Arrays.asList(
                         new Transaction("sportcheck", 2500, LocalDate.parse("2021-05-09")),
@@ -20,11 +20,11 @@ public class TransactionTest {
 
         int points = pointRewards.getMaxPoints(transactionList);
 
-        assertEquals(points, 95);
+        assertEquals(95, points);
     }
 
     @Test
-    void SampleTest() {
+    void sampleTest() {
         List<Transaction> transactionList = new ArrayList<>(
                 Arrays.asList(
                         new Transaction("sportcheck", 21000, LocalDate.parse("2021-05-01")),
@@ -42,6 +42,27 @@ public class TransactionTest {
 
         int points = pointRewards.getMaxPoints(transactionList);
 
-        assertEquals(points, 1627);
+        assertEquals(1627, points);
+    }
+
+    @Test
+    void zeroPoints() {
+        List<Transaction> transactionList = new ArrayList<>();
+
+        int points = pointRewards.getMaxPoints(transactionList);
+
+        assertEquals(0, points);
+
+        transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 0, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 3, LocalDate.parse("2021-05-06")),
+                        new Transaction("subway", 99, LocalDate.parse("2021-05-07"))
+                )
+        );
+
+        points = pointRewards.getMaxPoints(transactionList);
+
+        assertEquals(0, points);
     }
 }
