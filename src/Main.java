@@ -27,6 +27,6 @@ public class Main {
         PointRewards pointRewards = new PointRewards();
 
         System.out.println("The maximum number of points for the month is: "
-                + pointRewards.getMaxPoints(transactionList));
+                + pointRewards.findMaxPoints(transactionList));
     }
 }
