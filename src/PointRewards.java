@@ -43,6 +43,8 @@ public class PointRewards {
         return points;
     }
 
+    // We use backtracking to find the method that provides the most amount of points in a month. Note that we do not
+    // need cases for rules 3 and 5 since we can use other rules to get a larger point value in these cases.
     public int recursive(int sportCheckDollars, int timHortonsDollars, int subwayDollars, int points) {
         List<Integer> list = new ArrayList<>();
 

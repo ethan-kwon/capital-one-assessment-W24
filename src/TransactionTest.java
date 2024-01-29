@@ -5,9 +5,11 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Class to test my solution
 public class TransactionTest {
     PointRewards pointRewards = new PointRewards();
 
+    // Example 4 from the Problem Statement
     @Test
     void exampleTest() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -23,6 +25,7 @@ public class TransactionTest {
         assertEquals(95, points);
     }
 
+    // Sample Test from the Problem Statement
     @Test
     void sampleTest() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -45,6 +48,7 @@ public class TransactionTest {
         assertEquals(1677, points);
     }
 
+    // Test for Rule 1
     @Test
     void rule1() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -60,6 +64,7 @@ public class TransactionTest {
         assertEquals(500, points);
     }
 
+    // Test for Rule 2
     @Test
     void rule2() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -74,6 +79,7 @@ public class TransactionTest {
         assertEquals(300, points);
     }
 
+    // Test for Rule 3. Note that the amount is larger due to the use of other rules
     @Test
     void rule3() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -87,6 +93,7 @@ public class TransactionTest {
         assertEquals(240, points);
     }
 
+    // Test for Rule 4
     @Test
     void rule4() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -102,6 +109,7 @@ public class TransactionTest {
         assertEquals(150, points);
     }
 
+    // Test for Rule 5. Note that the points is larger since we can get a larger point value using other rules
     @Test
     void rule5() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -116,6 +124,7 @@ public class TransactionTest {
         assertEquals(90, points);
     }
 
+    // Test for Rule 6
     @Test
     void rule6() {
         List<Transaction> transactionList = new ArrayList<>(
@@ -129,6 +138,7 @@ public class TransactionTest {
         assertEquals(75, points);
     }
 
+    // Test for Rule 7
     @Test
     void rule7() {
         List<Transaction> transactionList = new ArrayList<>(
