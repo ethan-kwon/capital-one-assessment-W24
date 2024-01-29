@@ -18,7 +18,7 @@ public class TransactionTest {
                 )
         );
 
-        int points = pointRewards.getMaxPoints(transactionList);
+        int points = pointRewards.findMaxPoints(transactionList);
 
         assertEquals(95, points);
     }
@@ -40,16 +40,117 @@ public class TransactionTest {
                 )
         );
 
-        int points = pointRewards.getMaxPoints(transactionList);
+        int points = pointRewards.findMaxPoints(transactionList);
 
-        assertEquals(1627, points);
+        assertEquals(1677, points);
     }
+
+    @Test
+    void rule1() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 7500, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 2500, LocalDate.parse("2021-05-03")),
+                        new Transaction("subway", 2500, LocalDate.parse("2021-05-03"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(500, points);
+    }
+
+    @Test
+    void rule2() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 7500, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 2500, LocalDate.parse("2021-05-03"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(300, points);
+    }
+
+    @Test
+    void rule3() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 7500, LocalDate.parse("2021-05-01"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(240, points);
+    }
+
+    @Test
+    void rule4() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 2500, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 1000, LocalDate.parse("2021-05-03")),
+                        new Transaction("subway", 1000, LocalDate.parse("2021-05-03"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(150, points);
+    }
+
+    @Test
+    void rule5() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 2500, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 1000, LocalDate.parse("2021-05-03"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(90, points);
+    }
+
+    @Test
+    void rule6() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 2000, LocalDate.parse("2021-05-01"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(75, points);
+    }
+
+    @Test
+    void rule7() {
+        List<Transaction> transactionList = new ArrayList<>(
+                Arrays.asList(
+                        new Transaction("sportcheck", 500, LocalDate.parse("2021-05-01")),
+                        new Transaction("tim_hortons", 300, LocalDate.parse("2021-05-03")),
+                        new Transaction("subway", 200, LocalDate.parse("2021-05-03"))
+                )
+        );
+
+        int points = pointRewards.findMaxPoints(transactionList);
+
+        assertEquals(10, points);
+    }
+
+
 
     @Test
     void zeroPoints() {
         List<Transaction> transactionList = new ArrayList<>();
 
-        int points = pointRewards.getMaxPoints(transactionList);
+        int points = pointRewards.findMaxPoints(transactionList);
 
         assertEquals(0, points);
 
@@ -61,7 +162,7 @@ public class TransactionTest {
                 )
         );
 
-        points = pointRewards.getMaxPoints(transactionList);
+        points = pointRewards.findMaxPoints(transactionList);
 
         assertEquals(0, points);
     }

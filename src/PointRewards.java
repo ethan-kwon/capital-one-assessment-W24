@@ -1,19 +1,19 @@
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 // Class to handle calculating point rewards for the month
 public class PointRewards {
-
     private final String SPORTCHECK = "sportcheck";
     private final String TIMHORTONS = "tim_hortons";
     private final String SUBWAY = "subway";
     private final int CENTS_TO_DOLLAR = 100;
 
-    public int getMaxPoints(List<Transaction> transactionList) {
+    public int findMaxPoints(List<Transaction> transactionList) {
         int sportcheckCents = 0;
         int timHortonsCents = 0;
         int subwayCents = 0;
         int otherCents = 0;
-        int points = 0;
 
         for (Transaction t : transactionList) {
             switch (t.getName()) {
@@ -37,48 +37,48 @@ public class PointRewards {
         int subwayDollars = subwayCents / CENTS_TO_DOLLAR;
         int otherDollars = otherCents / CENTS_TO_DOLLAR;
 
-
-        while (sportCheckDollars >= 75 && timHortonsDollars >= 25 && subwayDollars >= 25) {
-            sportCheckDollars -= 75;
-            timHortonsDollars -= 25;
-            subwayDollars -= 25;
-            points += 500;
-        }
-
-        while (sportCheckDollars >= 20) {
-            sportCheckDollars -= 20;
-            points += 75;
-        }
-
-        while (sportCheckDollars >= 25 && timHortonsDollars >= 10 && subwayDollars >= 10) {
-            sportCheckDollars -= 25;
-            timHortonsDollars -= 10;
-            subwayDollars -= 10;
-            points += 150;
-        }
-
-        while (sportCheckDollars >= 75 && timHortonsDollars >= 25) {
-            sportCheckDollars -= 75;
-            timHortonsDollars -= 25;
-            points += 300;
-        }
-
-        while (sportCheckDollars >= 75) {
-            sportCheckDollars -= 75;
-            points += 200;
-        }
-
-        while (sportCheckDollars >= 25 && timHortonsDollars >= 10) {
-            sportCheckDollars -= 25;
-            timHortonsDollars -= 10;
-            points += 75;
-        }
-
-        points += sportCheckDollars;
-        points += timHortonsDollars;
-        points += subwayDollars;
+        int points = recursive(sportCheckDollars, timHortonsDollars, subwayDollars, 0);
         points += otherDollars;
 
         return points;
+    }
+
+    public int recursive(int sportCheckDollars, int timHortonsDollars, int subwayDollars, int points) {
+        List<Integer> list = new ArrayList<>();
+
+        if (sportCheckDollars == 0 && timHortonsDollars == 0 && subwayDollars == 0) {
+            return points;
+        }
+
+        if (sportCheckDollars >= 75 && timHortonsDollars >= 25 && subwayDollars >= 25) {
+            list.add(recursive(
+                    sportCheckDollars - 75,
+                    timHortonsDollars - 25,
+                    subwayDollars - 25,
+                    points + 500));
+        }
+
+        if (sportCheckDollars >= 20) {
+            list.add(recursive(sportCheckDollars - 20, timHortonsDollars, subwayDollars,
+                    points + 75));
+        }
+
+        if (sportCheckDollars >= 25 && timHortonsDollars >= 10 && subwayDollars >= 10) {
+            list.add(recursive(sportCheckDollars - 25,
+                    timHortonsDollars - 10,
+                    subwayDollars - 10,
+                    points + 150));
+        }
+
+        if (sportCheckDollars >= 75 && timHortonsDollars >= 25) {
+            list.add(recursive(sportCheckDollars - 75,
+                    timHortonsDollars - 25,
+                    subwayDollars,
+                    points + 300));
+        }
+
+        list.add(points + sportCheckDollars + timHortonsDollars + subwayDollars);
+
+        return Collections.max(list);
     }
 }
